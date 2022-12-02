@@ -1,7 +1,6 @@
 <?php
-
-
-
+$db = require $_SERVER['DOCUMENT_ROOT'] . '/common/db.php';
+$items=$db->query("SELECT client, text, feedback FROM testimonials ")
 ?>
 <!doctype html>
 <html lang="en">
@@ -24,40 +23,21 @@
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
                 <div class="testimonial-slider owl-carousel">
+                    <?php
+                    foreach ($items as $item):
+                    ?>
                     <div class="ts-item">
-                        <p>After a construction project took longer than expected, my husband, my daughter and I
-                            needed a place to stay for a few nights. As a Chicago resident, we know a lot about our
-                            city, neighborhood and the types of housing options available and absolutely love our
-                            vacation at Sona Hotel.</p>
+                        <p><?=$item['text']?></p>
                         <div class="ti-author">
                             <div class="rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star-half_alt"></i>
+                             <p><?=$item['feedback']?>/5 </p>
                             </div>
-                            <h5> - Alexander Vasquez</h5>
+                            <h5> - <?=$item['client']?></h5>
                         </div>
                         <img src="img/testimonial-logo.png" alt="">
                     </div>
-                    <div class="ts-item">
-                        <p>After a construction project took longer than expected, my husband, my daughter and I
-                            needed a place to stay for a few nights. As a Chicago resident, we know a lot about our
-                            city, neighborhood and the types of housing options available and absolutely love our
-                            vacation at Sona Hotel.</p>
-                        <div class="ti-author">
-                            <div class="rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star-half_alt"></i>
-                            </div>
-                            <h5> - Alexander Vasquez</h5>
-                        </div>
-                        <img src="img/testimonial-logo.png" alt="">
-                    </div>
+                    <?php endforeach; ?>
+
                 </div>
             </div>
         </div>

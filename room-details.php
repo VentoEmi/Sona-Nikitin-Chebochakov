@@ -1,3 +1,10 @@
+<?php
+$id = $_GET['id'];
+$db = require $_SERVER['DOCUMENT_ROOT'] . '/common/db.php';
+$items = $db->query("SELECT id,name, price, size, capacity, bed, services, description ,image FROM room WHERE id='{$id}' ");
+
+
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -59,8 +66,8 @@
         </div>
         <nav class="mainmenu mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./rooms.html">Rooms</a></li>
+                <li class="active"><a href="index.php">Home</a></li>
+                <li><a href="rooms.php">Rooms</a></li>
                 <li><a href="./about-us.html">About Us</a></li>
                 <li><a href="./pages.html">Pages</a>
                     <ul class="dropdown">
@@ -128,7 +135,7 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="logo">
-                            <a href="./index.html">
+                            <a href="index.php">
                                 <img src="img/logo.png" alt="">
                             </a>
                         </div>
@@ -137,8 +144,8 @@
                         <div class="nav-menu">
                             <nav class="mainmenu">
                                 <ul>
-                                    <li><a href="./index.html">Home</a></li>
-                                    <li class="active"><a href="./rooms.html">Rooms</a></li>
+                                    <li><a href="index.php">Home</a></li>
+                                    <li class="active"><a href="rooms.php">Rooms</a></li>
                                     <li><a href="./about-us.html">About Us</a></li>
                                     <li><a href="./pages.html">Pages</a>
                                         <ul class="dropdown">
@@ -186,11 +193,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
+                    <?php foreach ($items as $item):?>
                     <div class="room-details-item">
-                        <img src="img/room/room-details.jpg" alt="">
+                        <img class="img_room_details" src="<?=$item['image']?>" alt="">
                         <div class="rd-text">
                             <div class="rd-title">
-                                <h3>Premium King Room</h3>
+                                <h3><?=$item['name']?></h3>
                                 <div class="rdt-right">
                                     <div class="rating">
                                         <i class="icon_star"></i>
@@ -202,39 +210,28 @@
                                     <a href="#">Booking Now</a>
                                 </div>
                             </div>
-                            <h2>159$<span>/Pernight</span></h2>
+                            <h2><?=$item['price']?>₽<span>/Pernight</span></h2>
                             <table>
                                 <tbody>
                                     <tr>
                                         <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
+                                        <td><?=$item['size']?> ft</td>
                                     </tr>
                                     <tr>
                                         <td class="r-o">Capacity:</td>
-                                        <td>Max persion 5</td>
+                                        <td>Max persion <?=$item['capacity']?></td>
                                     </tr>
                                     <tr>
                                         <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
+                                        <td><?=$item['bed']?></td>
                                     </tr>
                                     <tr>
                                         <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
+                                        <td><?=$item['services']?></td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <p class="f-para">Motorhome or Trailer that is the question for you. Here are some of the
-                                advantages and disadvantages of both, so you will be confident when purchasing an RV.
-                                When comparing Rvs, a motorhome or a travel trailer, should you buy a motorhome or fifth
-                                wheeler? The advantages and disadvantages of both are studied so that you can make your
-                                choice wisely when purchasing an RV. Possessing a motorhome or fifth wheel is an
-                                achievement of a lifetime. It can be similar to sojourning with your residence as you
-                                search the various sites of our great land, America.</p>
-                            <p>The two commonly known recreational vehicle classes are the motorized and towable.
-                                Towable rvs are the travel trailers and the fifth wheel. The rv travel trailer or fifth
-                                wheel has the attraction of getting towed by a pickup or a car, thus giving the
-                                adaptability of possessing transportation for you when you are parked at your campsite.
-                            </p>
+                            <p class="f-para"><?=$item['description']?></p>
                         </div>
                     </div>
                     <div class="rd-reviews">
@@ -277,6 +274,7 @@
                                     magnam.</p>
                             </div>
                         </div>
+                        <?php break; endforeach;?>
                     </div>
                     <div class="review-add">
                         <h4>Add Review</h4>

@@ -31,7 +31,6 @@
 
 /* Template default CSS
 /*----------------------------------------*/
-
 html, body {
 	height: 100%;
 	font-family: "Cabin", sans-serif;
@@ -70,8 +69,13 @@ p {
 	line-height: 26px;
 	margin: 0 0 15px 0;
 }
-img {
-	max-width: 100%;
+.img_room {
+	width: 360px;
+	height: 230px;
+}
+.img_room_details {
+	width: 750px;
+	height: 400px;
 }
 input:focus, select:focus, button:focus, textarea:focus {
 	outline: none;
