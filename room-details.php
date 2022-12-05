@@ -3,7 +3,6 @@ $id = $_GET['id'];
 $db = require $_SERVER['DOCUMENT_ROOT'] . '/common/db.php';
 $items = $db->query("SELECT id,name, price, size, capacity, bed, services, description ,image FROM room WHERE id='{$id}' ");
 
-
 ?>
 <!DOCTYPE html>
 <html lang="zxx">

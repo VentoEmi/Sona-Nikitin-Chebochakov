@@ -1,9 +1,6 @@
 <?php
-
 $db = require $_SERVER['DOCUMENT_ROOT'] . '/common/db.php';
 $items = $db->query("SELECT id, name, price, size, capacity, bed, services, image FROM room ")
-
-
 ?>
 <section class="rooms-section spad">
     <div class="container">
