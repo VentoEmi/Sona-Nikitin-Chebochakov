@@ -173,9 +173,16 @@
                         <a href="#" class="primary-btn">Discover Now</a>
                     </div>
                 </div>
-                <?php
-                require $_SERVER['DOCUMENT_ROOT'].'/booking/form.php'
-                ?>
+                <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
+                    <div class="booking-form">
+                        <h3>Booking Your Hotel</h3>
+                        <?php
+                        require $_SERVER['DOCUMENT_ROOT'].'/booking/form.php'
+                        ?>
+                    </div>
+                </div>
+
+
             </div>
         </div>
         <div class="hero-slider owl-carousel">

@@ -233,14 +233,21 @@ $items = $db->query("SELECT id,name, price, size, capacity, bed, services, descr
                             <p class="f-para"><?=$item['description']?></p>
                         </div>
                     </div>
+                        <?php break; endforeach;?>
+
                     <div class="rd-reviews">
                         <h4>Reviews</h4>
-                        <div class="review-item">
+                        <?php
+                        $db = require $_SERVER['DOCUMENT_ROOT'] . '/common/db.php';
+                        $items = $db->query("SELECT id, name, text, room_id,date FROM reviews WHERE room_id='{$id}' ")->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($items as $item): ?>
+
+                            <div class="review-item">
                             <div class="ri-pic">
                                 <img src="img/room/avatar/avatar-1.jpg" alt="">
                             </div>
                             <div class="ri-text">
-                                <span>27 Aug 2019</span>
+                                <span><?=$item['date']?></span>
                                 <div class="rating">
                                     <i class="icon_star"></i>
                                     <i class="icon_star"></i>
@@ -248,42 +255,21 @@ $items = $db->query("SELECT id,name, price, size, capacity, bed, services, descr
                                     <i class="icon_star"></i>
                                     <i class="icon_star-half_alt"></i>
                                 </div>
-                                <h5>Brandon Kelley</h5>
-                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                                    magnam.</p>
+                                <h5><?=$item['name']?></h5>
+                                <p><?=$item['text']?></p>
                             </div>
-                        </div>
-                        <div class="review-item">
-                            <div class="ri-pic">
-                                <img src="img/room/avatar/avatar-2.jpg" alt="">
-                            </div>
-                            <div class="ri-text">
-                                <span>27 Aug 2019</span>
-                                <div class="rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star-half_alt"></i>
-                                </div>
-                                <h5>Brandon Kelley</h5>
-                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                                    magnam.</p>
-                            </div>
-                        </div>
-                        <?php break; endforeach;?>
+
+                        <?php endforeach;?>
                     </div>
                     <div class="review-add">
                         <h4>Add Review</h4>
-                        <form action="#" class="ra-form">
+                        <form action="reviews/form.php" method="post" class="ra-form">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <input type="text" placeholder="Name*">
+                                    <input type="text" name="name" placeholder="Name*">
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="text" placeholder="Email*">
+                                    <input type="text" name="text" placeholder="Email*">
                                 </div>
                                 <div class="col-lg-12">
                                     <div>
@@ -297,44 +283,26 @@ $items = $db->query("SELECT id,name, price, size, capacity, bed, services, descr
                                         </div>
                                     </div>
                                     <textarea placeholder="Your Review"></textarea>
+                                    <input name="id" type="text " hidden value="<?=$id?>">
                                     <button type="submit">Submit Now</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+
+
+        </div>
                 <div class="col-lg-4">
                     <div class="room-booking">
                         <h3>Your Reservation</h3>
-                        <form action="#">
-                            <div class="check-date">
-                                <label for="date-in">Check In:</label>
-                                <input type="text" class="date-input" id="date-in">
-                                <i class="icon_calendar"></i>
-                            </div>
-                            <div class="check-date">
-                                <label for="date-out">Check Out:</label>
-                                <input type="text" class="date-input" id="date-out">
-                                <i class="icon_calendar"></i>
-                            </div>
-                            <div class="select-option">
-                                <label for="guest">Guests:</label>
-                                <select id="guest">
-                                    <option value="">3 Adults</option>
-                                </select>
-                            </div>
-                            <div class="select-option">
-                                <label for="room">Room:</label>
-                                <select id="room">
-                                    <option value="">1 Room</option>
-                                </select>
-                            </div>
-                            <button type="submit">Check Availability</button>
-                        </form>
+                        <?php
+                        require $_SERVER['DOCUMENT_ROOT'].'/booking/form.php'
+                        ?>
                     </div>
                 </div>
+
             </div>
-        </div>
     </section>
     <!-- Room Details Section End -->
 

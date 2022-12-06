@@ -37,6 +37,16 @@ html, body {
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
+input[type="date"]{
+	width: 280px;
+	height: 50px;
+}
+input{
+	width: 280px;
+	height: 50px;
+	border: 1px solid rgba(11, 11, 11, 0.1);
+}
+
 h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 	color: #111111;
