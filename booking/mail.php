@@ -11,21 +11,69 @@ $path = $_SERVER['DOCUMENT_ROOT'] . "/img/{$bokking_code}.png";
 $img=file_put_contents($path, $qr);
 $db->query("INSERT INTO form(CheckIn,CheckOut,guests, room_id,Email,bokking_code ) VALUES ('{$checkIn}','{$checkOut}','{$guests}','{$room}','{$email}','{$bokking_code}')");
 
+/*
 $headers  = 'MIME-Version: 1.0' . "\r\n";
 $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+*/
 
-mail("{$email}", "Бронирование комнаты в отеле Sona",
-`
+
+
+$mailto = $email;
+$file=$path;
+$subject="Бронь комнаты в отеле";
+$message=" Дата заселения: ". $checkIn . "\r\n".
+         " Дата выселения: ". $checkOut . "\r\n".
+        " Количество гостей отлея: ". $guests . "\r\n";
+$r = sendMailAttachment ($mailto,$subject, $message, $file);
+function sendMailAttachment($mailTo, $subject, $message, $file)
+    {
+        $separator = "---";
+        $headers = "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: multipart/mixed; boundary=\"$separator\"";
+
+            $bodyMail = "--$separator\n"; // начало тела письма, выводим разделитель
+            $bodyMail .= "Content-Type:text/html; charset=\"utf-8\"\n"; // кодировка письма
+            $bodyMail .= "Content-Transfer-Encoding: 7bit\n\n"; // задаем конвертацию письма
+            $bodyMail .= $message."\n"; // добавляем текст письма
+            $bodyMail .= "--$separator\n";
+            $fileRead = fopen($file, "r");
+            $contentFile = fread($fileRead, filesize($file));
+            fclose($fileRead);
+            $bodyMail .= "Content-Type: application/octet-stream; name==?utf-8?B?".base64_encode(basename($file))."?=\n";
+            $bodyMail .= "Content-Transfer-Encoding: base64\n"; // кодировка файла
+            $bodyMail .= "Content-Disposition: attachment; filename==?utf-8?B?".base64_encode(basename($file))."?=\n\n";
+            $bodyMail .= chunk_split(base64_encode($contentFile))."\n"; // кодируем и прикрепляем файл
+            $bodyMail .= "--".$separator ."--\n";
+            // письмо без вложения
+
+        $result = mail($mailTo, $subject, $bodyMail, $headers); // отправка письма
+        return $result;
+
+    }
+header("location:../index.php");
+
+
+
+
+
+
+
+
+
+
+
+
+/*`
 <html>
 <head>
     <title>Бронирование комнаты в отеле Sona</title>
 </head>
 <body>
-<img src="{$path}" alt=''>
+<img src="{$img}" alt=''>
 </body>
 </html>
 `, $headers);
-header("location:../index.php");
+header("location:../index.php")
 /*
  *
  * Дата заселения: {$checkIn}.

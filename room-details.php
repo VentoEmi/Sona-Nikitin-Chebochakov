@@ -291,7 +291,7 @@ $items = $db->query("SELECT id,name, price, size, capacity, bed, services, descr
                     </div>
                 </div>
 
-
+<!--
         </div>
                 <div class="col-lg-4">
                     <div class="room-booking">
@@ -303,6 +303,7 @@ $items = $db->query("SELECT id,name, price, size, capacity, bed, services, descr
                 </div>
 
             </div>
+            -->
     </section>
     <!-- Room Details Section End -->
 
