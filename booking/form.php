@@ -1,6 +1,6 @@
 <?php
-$db = require $_SERVER['DOCUMENT_ROOT'] . '/common/db.php';
-$items = $db->query("SELECT * FROM room ");
+$db = require $_SERVER['DOCUMENT_ROOT'] . '/common/db.php'; // Подключение БД
+$items = $db->query("SELECT * FROM room "); // Запрос: выбирает всё из таблицы room
 ?>
 <form action="booking/mail.php" method="post">
     <div class="check-date">
@@ -20,11 +20,11 @@ $items = $db->query("SELECT * FROM room ");
     <div class="select-option">
         <label for="room">Room:</label>
         <select name="room" id="room" required>
-            <?php foreach ($items as $item):?>
-                <option value="<?=$item['id']?>">
-                    <?=$item['name']?>
+            <?php foreach ($items as $item):?> <!-- Перебираем значение id, name -->
+                <option value="<?=$item['id']?>"> <!-- id -->
+                    <?=$item['name']?> <!-- name -->
                 </option>
-            <?php endforeach;?>
+            <?php endforeach;?> <!-- Заверешение цикла -->
         </select>
     </div>
     <div class="select-option">

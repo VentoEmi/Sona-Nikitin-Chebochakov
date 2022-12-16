@@ -177,7 +177,7 @@
                     <div class="booking-form">
                         <h3>Booking Your Hotel</h3>
                         <?php
-                        require $_SERVER['DOCUMENT_ROOT'].'/booking/form.php'
+                        require $_SERVER['DOCUMENT_ROOT'].'/booking/form.php' // подключаем форму бронирования
                         ?>
                     </div>
                 </div>
@@ -186,9 +186,12 @@
             </div>
         </div>
         <div class="hero-slider owl-carousel">
-            <div class="hs-item set-bg" data-setbg="img/hero/hero-1.jpg"></div>
-            <div class="hs-item set-bg" data-setbg="img/hero/hero-2.jpg"></div>
-            <div class="hs-item set-bg" data-setbg="img/hero/hero-3.jpg"></div>
+            <?php
+            $db = require $_SERVER['DOCUMENT_ROOT'] . '/common/db.php';
+            $items = $db->query("SELECT id, img FROM slaider ");
+            foreach ($items as $item): ?>
+            <div class="hs-item set-bg" data-setbg="<?=$item['img']?>"></div>
+            <?php endforeach;?>
         </div>
     </section>
     <!-- Hero Section End -->
